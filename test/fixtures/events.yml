@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  description: MyText
+  all_day: false
+  start: 2010-08-07 15:32:19
+  end: 2010-08-07 15:32:19
+  location: MyText
+  phone: MyString
+  email: MyString
+  cost: 1.5
+  approved: false
+
+two:
+  name: MyString
+  description: MyText
+  all_day: false
+  start: 2010-08-07 15:32:19
+  end: 2010-08-07 15:32:19
+  location: MyText
+  phone: MyString
+  email: MyString
+  cost: 1.5
+  approved: false
