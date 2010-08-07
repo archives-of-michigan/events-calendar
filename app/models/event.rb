@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  scope :future, :conditions => ["end > ?", Time.now]
+  scope :future, :conditions => ['"events"."end" > ?', Time.now]
   scope :approved, :conditions => { :approved => true }
 
   def start=(val)
