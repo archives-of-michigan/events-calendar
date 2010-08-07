@@ -1,12 +1,24 @@
 class EventsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index, :show, :new, :create]
+
   # GET /events
   # GET /events.xml
   def index
-    @events = Event.all
+    @events = Event.future
+    @events = @events.approved unless user_signed_in?
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @events }
+      format.json { render :json => @events }
+    end
+  end
+
+  def calendar
+    @calendar = Event.calendar
+
+    respond_to do |format|
+      format.json { render :json => @calendar }
     end
   end
 

@@ -1,0 +1,10 @@
+<ul class="breadcrumbs">
+  <li><a href="http://seekingmichigan.org">Home</a></li>
+  <li> &raquo; <a href="/">Store</a></li>
+  <% bread_crumbs.list.each do |crumb| %>
+    <li <% if crumb.url.nil? %>class="here"<% end %>>
+      &raquo; 
+      <a href="<%= crumb.url %>"><%= crumb.text %></a>
+    </li>
+  <% end %>
+</ul>

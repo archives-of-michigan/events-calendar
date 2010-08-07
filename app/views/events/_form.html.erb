@@ -49,10 +49,12 @@
     <%= f.label :cost %><br />
     <%= f.text_field :cost %>
   </div>
-  <div class="field">
-    <%= f.label :approved %><br />
-    <%= f.check_box :approved %>
-  </div>
+  <% if user_signed_in? %>
+    <div class="field">
+      <%= f.label :approved %><br />
+      <%= f.check_box :approved %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

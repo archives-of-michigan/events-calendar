@@ -1,8 +1,11 @@
 class Event < ActiveRecord::Base
+  scope :future, :conditions => ["end > ?", Time.now]
+  scope :approved, :conditions => { :approved => true }
+
   def start=(val)
-    update_attributes :start => Chronic.parse(val)
+    self[:start] = Chronic.parse val
   end
   def end=(val)
-    update_attributes :end => Chronic.parse(val)
+    self[:end] = Chronic.parse val
   end
 end

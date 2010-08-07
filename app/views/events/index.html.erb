@@ -11,10 +11,12 @@
     <th>Phone</th>
     <th>Email</th>
     <th>Cost</th>
-    <th>Approved</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <% if user_signed_in? %>
+      <th>Approved</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    <% end %>
   </tr>
 
 <% @events.each do |event| %>
@@ -28,10 +30,19 @@
     <td><%= event.phone %></td>
     <td><%= event.email %></td>
     <td><%= event.cost %></td>
-    <td><%= event.approved %></td>
-    <td><%= link_to 'Show', event %></td>
-    <td><%= link_to 'Edit', edit_event_path(event) %></td>
-    <td><%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if user_signed_in? %>
+      <td><%= event.approved %></td>
+      <td>
+
+        <% if event.approved %>
+          <%= link_to 'Unapprove', unapprove_event_path(event), :method => :put %>
+        <% else %>
+          <%= link_to 'Approve', approve_event_path(event), :method => :put %>
+        <% end %>
+      </td>
+      <td><%= link_to 'Edit', edit_event_path(event) %></td>
+      <td><%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
