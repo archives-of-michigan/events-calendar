@@ -76,7 +76,8 @@ module SimplesIdeias
               
                 if block_given? && !day.blank?
                   if options[:events]
-                    events = capture(date, records[date.to_s(:number)], &block)
+                    event = records[date.to_s(:number)]
+                    events = capture(date, records[date.to_s(:number)], &block) if event
                   else
                     events = capture(date, &block)
                   end
@@ -93,10 +94,10 @@ module SimplesIdeias
             end
           end
         
-          caption + head + rows
+          caption.html_safe + head.html_safe + rows.html_safe
         end
       
-        concat(contents) if block_given?        
+        # concat(contents) if block_given?
         
         contents
       end

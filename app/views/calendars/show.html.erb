@@ -1,0 +1,19 @@
+<div>
+  <select id="calendar_year">
+    <% @years.each do |year| %>
+      <option value="<%= year %>"><%= year %></option>
+    <% end %>
+  </select>
+  <select id="calendar_month">
+    <% @months.each do |month, num| %>
+      <option value="<%= num %>"><%= month %></option>
+    <% end %>
+  </select>
+</div>
+<% calendar :year => params[:year].to_i, :month => params[:month].to_i,
+  :events => Event.future.approved.each, :field => :start,
+  :caption_format => :month_year do |date, events| %>
+  <% events.each do |event| %>
+    <%= link_to event.name, event_path(event) %>
+  <% end %>
+<% end %>
