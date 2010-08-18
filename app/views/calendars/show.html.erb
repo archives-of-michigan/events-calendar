@@ -1,10 +1,10 @@
 <div id='calendar_controls'>
-  <%= select_tag 'calendar_year', options_for_select(@years, params[:year]), :id => 'calendar_year' %>
-  <%= select_tag 'calendar_month', options_for_select(@months, params[:month]), :id => 'calendar_month' %>
+  <%= select_tag 'calendar_year', options_for_select(@years, params[:year].to_i), :id => 'calendar_year' %>
+  <%= select_tag 'calendar_month', options_for_select(@months, params[:month].to_i), :id => 'calendar_month' %>
 </div>
 <% calendar :year => params[:year].to_i, :month => params[:month].to_i,
   :events => Event.future.approved.each, :field => :start,
-  :caption_format => :month_year do |date, events| %>
+  :caption_format => :none do |date, events| %>
   <% events.each do |event| %>
     <%= link_to event.name, event_path(event) %>
   <% end %>

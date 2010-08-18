@@ -7,4 +7,5 @@ en:
     formats:
       day_of_week: "%a"
       month_year: "%B %Y"
+      none: ""
 
