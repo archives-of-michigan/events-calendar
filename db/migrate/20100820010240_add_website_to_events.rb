@@ -1,9 +1,9 @@
 class AddWebsiteToEvents < ActiveRecord::Migration
   def self.up
-    add_colum :events, :website, :string
+    add_column :events, :website, :string
   end
 
   def self.down
-    remove_colum :events, :website
+    remove_column :events, :website
   end
 end
