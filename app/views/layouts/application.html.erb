@@ -3,6 +3,7 @@
 <head>
   <%= yield :title %>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%= csrf_meta_tag %>
   <link rel="stylesheet" href="http://seekingmichigan.org/stylesheets/screen/main.css" type="text/css" media="screen, projection" />
   <%= stylesheet_link_tag 'store' %>
   <!--[if IE]>
@@ -90,6 +91,5 @@
       </div>
     </div>
   </div>
-  <%= csrf_meta_tag %>
 </body>
 </html>
