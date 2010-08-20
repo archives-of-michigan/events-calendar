@@ -1,55 +1,35 @@
-<p id="notice"><%= notice %></p>
+<h3>Name:</h3>
+<p><%= @event.name %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @event.name %>
-</p>
+<h3>Description:</h3>
+<p><%= @event.description %></p>
 
-<p>
-  <b>Description:</b>
-  <%= @event.description %>
-</p>
+<h3>All day:</h3>
+<p><%= @event.all_day %></p>
 
-<p>
-  <b>All day:</b>
-  <%= @event.all_day %>
-</p>
+<h3>Start:</h3>
+<p><%= @event.start %></p>
 
-<p>
-  <b>Start:</b>
-  <%= @event.start %>
-</p>
+<h3>End:</h3>
+<p><%= @event.end %></p>
 
-<p>
-  <b>End:</b>
-  <%= @event.end %>
-</p>
+<h3>Location:</h3>
+<p><%= @event.location %></p>
 
-<p>
-  <b>Location:</b>
-  <%= @event.location %>
-</p>
+<h3>Website:</h3>
+<p><%= link_to @event.website, @event.website %></p>
 
-<p>
-  <b>Phone:</b>
-  <%= @event.phone %>
-</p>
+<h3>Phone:</h3>
+<p><%= @event.phone %></p>
 
-<p>
-  <b>Email:</b>
-  <%= @event.email %>
-</p>
+<h3>Email:</h3>
+<p><%= @event.email %></p>
 
-<p>
-  <b>Cost:</b>
-  <%= @event.cost %>
-</p>
+<h3>Cost:</h3>
+<p><%= @event.cost %></p>
 
-<p>
-  <b>Approved:</b>
-  <%= @event.approved %>
-</p>
-
+<h3>Approved:</h3>
+<p><%= @event.approved %></p>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
