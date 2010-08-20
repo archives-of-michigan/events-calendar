@@ -1,18 +1,13 @@
 <h1>Listing events</h1>
 
-<table>
+<table style="width: 100%;">
   <tr>
     <th>Name</th>
-    <th>Description</th>
-    <th>All day</th>
     <th>Start</th>
     <th>End</th>
     <th>Location</th>
-    <th>Phone</th>
     <th>Email</th>
-    <th>Cost</th>
     <% if user_signed_in? %>
-      <th>Approved</th>
       <th></th>
       <th></th>
       <th></th>
@@ -21,19 +16,13 @@
 
 <% @events.each do |event| %>
   <tr>
-    <td><%= event.name %></td>
-    <td><%= event.description %></td>
-    <td><%= event.all_day %></td>
-    <td><%= event.start %></td>
-    <td><%= event.end %></td>
+    <td><%= link_to event.name, event %></td>
+    <td><%= event_date event.start %></td>
+    <td><%= event_date event.end %></td>
     <td><%= event.location %></td>
-    <td><%= event.phone %></td>
-    <td><%= event.email %></td>
-    <td><%= event.cost %></td>
+    <td><%= mail_to event.email, event.email %></td>
     <% if user_signed_in? %>
-      <td><%= event.approved %></td>
       <td>
-
         <% if event.approved %>
           <%= link_to 'Unapprove', unapprove_event_path(event), :method => :put %>
         <% else %>

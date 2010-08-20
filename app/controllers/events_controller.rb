@@ -56,7 +56,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to(@event, :notice => 'Event was successfully created.') }
+        format.html
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html { render :action => "new" }
@@ -91,5 +91,19 @@ class EventsController < ApplicationController
       format.html { redirect_to(events_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def approve
+    event.approve!
+    redirect_to(event, :notice => 'Event was approved.')
+  end
+  def unapprove
+    event.unapprove!
+    redirect_to(event, :notice => 'Event was unapproved.')
+  end
+
+private
+  def event
+    @event = Event.find(params[:id])
   end
 end

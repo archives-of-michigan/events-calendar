@@ -25,17 +25,17 @@
   </div>
   <div class="field">
     <%= f.label :start, 'Start date/time' %><br />
-    <%= f.text_field :start %>
+    <%= f.text_field :start, :value => @event.try(:start).try(:to_formatted_s, :long) %>
     e.g. "tomorrow" or "August 1st" or "June 23rd, 2011"
   </div>
   <div class="field">
     <%= f.label :end, 'End date/time' %><br />
-    <%= f.text_field :end %>
+    <%= f.text_field :end, :value => @event.try(:end).try(:to_formatted_s, :long) %>
     e.g. "tomorrow" or "August 1st" or "June 23rd, 2011"
   </div>
   <div class="field">
     <%= f.label :location %><br />
-    <%= f.text_area :location, :cols => 5 %>
+    <%= f.text_area :location, :rows => 5 %>
   </div>
   <div class="field">
     <%= f.label :phone %><br />
