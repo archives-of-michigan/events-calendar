@@ -9,8 +9,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @events }
-      format.json { render :json => @events }
+      format.xml  { render :xml => Event.grouped_list }
+      format.json { render :json => Event.grouped_list }
     end
   end
 

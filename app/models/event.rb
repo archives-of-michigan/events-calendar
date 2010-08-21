@@ -2,6 +2,10 @@ class Event < ActiveRecord::Base
   scope :future, :conditions => ['"events"."end" > ?', Time.now]
   scope :approved, :conditions => { :approved => true }
 
+  def self.grouped_list
+    future.approved.group_by(&:start)
+  end
+
   def start=(val)
     self[:start] = Chronic.parse val
   end
