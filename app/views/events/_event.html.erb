@@ -1,0 +1,56 @@
+<h3>Name:</h3>
+<p><%= event.name %></p>
+
+<h3>Description:</h3>
+<p><%= event.description %></p>
+
+<h3>Start:</h3>
+<p><%= event_date event.start %></p>
+
+<h3>End:</h3>
+<p><%= event_date event.end %></p>
+
+<% if event.all_day %>
+  <h3>This is an all day event</h3>
+<% end %>
+
+<% if event.location %>
+  <h3>Location:</h3>
+  <p><%= event.location %></p>
+<% end %>
+
+<% if event.website %>
+  <h3>Website:</h3>
+  <p><%= link_to event.website, event.website %></p>
+<% end %>
+
+<% if event.phone.present? %>
+  <h3>Phone:</h3>
+  <p><%= event.phone %></p>
+<% end %>
+
+<% if event.email.present? %>
+  <h3>Email:</h3>
+  <p><%= mail_to event.email, event.email %></p>
+<% end %>
+
+<% if event.cost.present? %>
+  <h3>Cost:</h3>
+  <p><%= event.cost %></p>
+<% end %>
+
+<% if user_signed_in? %>
+  <div class="event-buttons">
+    <% if event.approved %>
+      <%= link_to 'Unapprove', unapprove_event_path(event), :method => :put %>
+    <% else %>
+      <%= link_to 'Approve', approve_event_path(event), :method => :put %>
+    <% end %>
+    |
+    <%= link_to 'Edit', edit_event_path(event), :method => :get %>
+    |
+    <%= link_to 'Delete', event_path(event), :method => :delete %>
+    |
+    <%= link_to 'List', events_path %>
+  </div>
+<% end %>

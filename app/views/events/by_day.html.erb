@@ -1,0 +1,14 @@
+<h1>Events for <%= @date.to_formatted_s :long %></h1>
+
+<% if @events.empty? %>
+  There are no events for this date.
+<% else %>
+  <ul>
+    <% @events.each do |event| %>
+      <li>
+        <%= render :partial => 'event', :locals => { :event => event } %>
+        <hr />
+      </li>
+    <% end %>
+  </ul>
+<% end %>
