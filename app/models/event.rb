@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
   scope :approved, :conditions => { :approved => true }
 
   def self.grouped_list
-    future.approved.group_by(&:start)
+    future.approved.group_by(&:day)
   end
 
   def start=(val)
@@ -20,5 +20,9 @@ class Event < ActiveRecord::Base
   def unapprove!
     self.approved = false
     save!
+  end
+
+  def day
+    start.strftime('%B %d, %Y')
   end
 end
