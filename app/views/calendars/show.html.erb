@@ -5,6 +5,7 @@
 <% calendar :year => params[:year].to_i, :month => params[:month].to_i,
   :events => Event.future.approved.each, :field => :start,
   :caption_format => :none do |date, events| %>
-    <%= link_to pluralize(events.count, 'event'), 
+    <br />
+    <%= link_to 'Events',
       events_by_day_path(:year => date.year, :month => date.month, :day => date.day) %>
 <% end %>
