@@ -1,41 +1,43 @@
-<h1>Listing events</h1>
+<h2>Listing events</h2>
 
-<table style="width: 100%;">
-  <tr>
-    <th>Name</th>
-    <th>Start</th>
-    <th>End</th>
-    <th>Location</th>
-    <th>Email</th>
-    <% if user_signed_in? %>
-      <th></th>
-      <th></th>
-      <th></th>
-    <% end %>
-  </tr>
+<% if @events.empty? %>
+  There are no events yet.
+<% else %>
+  <table style="width: 100%;">
+    <tr>
+      <th>Name</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Location</th>
+      <th>Email</th>
+      <% if user_signed_in? %>
+        <th></th>
+        <th></th>
+        <th></th>
+      <% end %>
+    </tr>
 
-<% @events.each do |event| %>
-  <tr>
-    <td><%= link_to event.name, event %></td>
-    <td><%= event_date event.start %></td>
-    <td><%= event_date event.end %></td>
-    <td><%= event.location %></td>
-    <td><%= mail_to event.email, event.email %></td>
-    <% if user_signed_in? %>
-      <td>
-        <% if event.approved %>
-          <%= link_to 'Unapprove', unapprove_event_path(event), :method => :put %>
-        <% else %>
-          <%= link_to 'Approve', approve_event_path(event), :method => :put %>
-        <% end %>
-      </td>
-      <td><%= link_to 'Edit', edit_event_path(event) %></td>
-      <td><%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %></td>
-    <% end %>
-  </tr>
+  <% @events.each do |event| %>
+    <tr>
+      <td><%= link_to event.name, event %></td>
+      <td><%= event_date event.start %></td>
+      <td><%= event_date event.end %></td>
+      <td><%= event.location %></td>
+      <td><%= mail_to event.email, event.email %></td>
+      <% if user_signed_in? %>
+        <td>
+          <% if event.approved %>
+            <%= link_to 'Unapprove', unapprove_event_path(event), :method => :put %>
+          <% else %>
+            <%= link_to 'Approve', approve_event_path(event), :method => :put %>
+          <% end %>
+        </td>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td><%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </table>
 <% end %>
-</table>
 
-<br />
-
-<%= link_to 'New Event', new_event_path %>
+<p><%= button_to 'New Event', new_event_path %></p>

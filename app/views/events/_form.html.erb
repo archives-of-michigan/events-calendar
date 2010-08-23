@@ -12,45 +12,45 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <h3><%= f.label :name %></h3>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <h3><%= f.label :description %></h3>
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :all_day %><br />
+    <h3 style="display: inline; margin-right: 10px;"><%= f.label :all_day, 'This is an all-day event' %></h3>
     <%= f.check_box :all_day %>
   </div>
   <div class="field">
-    <%= f.label :start, 'Start date/time' %><br />
+    <h3><%= f.label :start, 'Start date/time' %></h3>
     <%= f.text_field :start, :value => @event.try(:start).try(:to_formatted_s, :long) %>
     e.g. "tomorrow" or "August 1st" or "June 23rd, 2011"
   </div>
   <div class="field">
-    <%= f.label :end, 'End date/time' %><br />
+    <h3><%= f.label :end, 'End date/time' %></h3>
     <%= f.text_field :end, :value => @event.try(:end).try(:to_formatted_s, :long) %>
     e.g. "tomorrow" or "August 1st" or "June 23rd, 2011"
   </div>
   <div class="field">
-    <%= f.label :location %><br />
+    <h3><%= f.label :location %></h3>
     <%= f.text_area :location, :rows => 5 %>
   </div>
   <div class="field">
-    <%= f.label :phone %><br />
+    <h3><%= f.label :phone %></h3>
     <%= f.text_field :phone %>
   </div>
   <div class="field">
-    <%= f.label :website %><br />
+    <h3><%= f.label :website %></h3>
     <%= f.text_field :website %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <h3><%= f.label :email %></h3>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :cost %><br />
+    <h3><%= f.label :cost %></h3>
     <%= f.text_field :cost %>
   </div>
   <div class="actions">
