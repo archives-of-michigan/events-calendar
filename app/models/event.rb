@@ -1,6 +1,14 @@
 class Event < ActiveRecord::Base
+  belongs_to :category
+
+  scope :in_category, lambda do |category|
+    :conditions => { :category => { :name => category.downcase.underscore } },
+    :include => :categories
+  end
   scope :future, :conditions => ['"events"."end" > ?', Time.now]
   scope :approved, :conditions => { :approved => true }
+
+  validates_presence_of :category
 
   def self.grouped_list
     future.approved.group_by(&:day)
