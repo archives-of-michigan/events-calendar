@@ -58,6 +58,6 @@ class Event < ActiveRecord::Base
 private
   def parse_dates
     self.start = Chronic::parse(self.start_before_type_cast) if attribute_present?("start")
-    self.end = ChronicDuration::parse(self.end_before_type_cast) if attribute_present?("end")
+    self.end = Chronic::parse(self.end_before_type_cast) if attribute_present?("end")
   end
 end
