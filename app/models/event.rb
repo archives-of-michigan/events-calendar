@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  include ActionView::Helpers::UrlHelper
+  include ActionController::UrlWriter
 
   belongs_to :category
 
@@ -43,10 +43,10 @@ class Event < ActiveRecord::Base
   end
 
   def url
-    website ? website : event_url(self)
+    website ? website : event_path(self)
   end
 
-  def to_json(options = {})
-    super options.merge(:only => ['url', 'name', 'description', 'time', 'location'])
+  def as_json(options = {})
+    {:id => id, :url => url, :name => name, :description => description, :time => time, :location => location }
   end
 end
