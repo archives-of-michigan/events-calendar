@@ -57,7 +57,8 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.xml
   def new
-    load_data
+    category
+    @event = Event.new
 
     respond_to do |format|
       format.html # new.html.erb
