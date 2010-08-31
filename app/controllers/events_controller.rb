@@ -117,7 +117,7 @@ class EventsController < ApplicationController
     clear_zend_cache
 
     respond_to do |format|
-      format.html { redirect_to(events_url) }
+      format.html { redirect_to(category_events_url(category)) }
       format.xml  { head :ok }
     end
   end
