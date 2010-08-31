@@ -1,5 +1,6 @@
 require 'date'
 require 'time'
+require 'fileutils'
 
 class EventsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :by_day, :show, :new, :create]
@@ -79,6 +80,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        clear_zend_cache
         format.html
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
@@ -97,6 +99,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
+        clear_zend_cache
         format.html { redirect_to(@event, :notice => 'Event was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -111,6 +114,7 @@ class EventsController < ApplicationController
   def destroy
     load_data
     @event.destroy
+    clear_zend_cache
 
     respond_to do |format|
       format.html { redirect_to(events_url) }
@@ -121,11 +125,13 @@ class EventsController < ApplicationController
   def approve
     load_data
     event.approve!
+    clear_zend_cache
     redirect_to(event, :notice => 'Event was approved.')
   end
   def unapprove
     load_data
     event.unapprove!
+    clear_zend_cache
     redirect_to(event, :notice => 'Event was unapproved.')
   end
 
@@ -158,6 +164,13 @@ private
     else
       @events = Event.future.approved
       @events = @events.limit params[:limit] if params[:limit]
+    end
+  end
+
+  def clear_zend_cache
+    # I know this is crazy, but it's 12am and I'm doing it!
+    Dir.glob('/tmp/zend_cache*').each do |cache|
+      FileUtils.rm cache
     end
   end
 end
