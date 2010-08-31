@@ -7,9 +7,11 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     @category = Category.find_by_name params[:category_id]
-    @events = @category.events.future
-    @events = @events.limit params[:limit] if params[:limit]
-    @events = @events.approved unless user_signed_in?
+    if @category
+      @events = @category.events.future 
+      @events = @events.limit params[:limit] if params[:limit]
+      @events = @events.approved unless user_signed_in?
+    end
 
     respond_to do |format|
       format.html # index.html.erb
