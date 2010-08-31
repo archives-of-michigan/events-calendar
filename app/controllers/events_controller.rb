@@ -6,7 +6,8 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    @events = Event.in_category(params[:category]).future
+    @category = Category.find_by_name params[:category_id]
+    @events = Event.in_category(params[:category_id]).future
     @events = @events.limit params[:limit] if params[:limit]
     @events = @events.approved unless user_signed_in?
 
@@ -18,9 +19,10 @@ class EventsController < ApplicationController
   end
 
   def by_day
+    @category = Category.find_by_name params[:category_id]
     day_start = DateTime.new params[:year].to_i, params[:month].to_i, params[:day].to_i, 0, 0, 0
     day_end = DateTime.new params[:year].to_i, params[:month].to_i, params[:day].to_i, 23, 59, 59
-    @events = Event.in_category(params[:category]).find :all, 
+    @events = Event.in_category(params[:category_id]).find :all, 
       :conditions => ['? <= end AND ? >= start AND approved = ?', day_start, day_end, true]
     @date = Date.new params[:year].to_i, params[:month].to_i, params[:day].to_i
     respond_to do |format|
@@ -29,6 +31,7 @@ class EventsController < ApplicationController
   end
 
   def calendar
+    @category = Category.find_by_name params[:category_id]
     @calendar = Event.calendar
 
     respond_to do |format|
@@ -39,6 +42,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.xml
   def show
+    @category = Category.find_by_name params[:category_id]
     @event = Event.find(params[:id])
 
     respond_to do |format|
@@ -50,6 +54,7 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.xml
   def new
+    @category = Category.find_by_name params[:category_id]
     @event = Event.new
 
     respond_to do |format|
@@ -61,12 +66,15 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
+    @category = @event.category
   end
 
   # POST /events
   # POST /events.xml
   def create
-    @event = Event.new(params[:event])
+    [:start, :end].each { |t| params[:event][t] = Chronic.parse(params[:event][t]) } if params[:event]
+    @category = Category.find_by_name params[:category_id]
+    @event = Event.new params[:event].merge(:category => @category)
 
     respond_to do |format|
       if @event.save
@@ -82,7 +90,9 @@ class EventsController < ApplicationController
   # PUT /events/1
   # PUT /events/1.xml
   def update
+    [:start, :end].each { |t| params[:event][t] = Chronic.parse(params[:event][t]) } if params[:event]
     @event = Event.find(params[:id])
+    @category = @event.category
 
     respond_to do |format|
       if @event.update_attributes(params[:event])

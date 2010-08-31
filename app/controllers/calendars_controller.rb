@@ -3,6 +3,8 @@ require 'has_calendar'
 class CalendarsController < ApplicationController
   layout nil
   def show
+    @category = Category.find_by_name params[:category_id]
+    @events = Event.future.approved.in_category params[:category_id]
     current_year = Date.today.year.to_i
     @years = (current_year..(current_year + 5)).inject([]) do |list, y|
       list << y

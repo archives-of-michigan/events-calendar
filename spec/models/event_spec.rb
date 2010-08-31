@@ -6,9 +6,9 @@ describe Event do
     it 'should show all events in a given category' do
       cata = Category.create :name => 'a'
       catb = Category.create :name => 'b'
-      Event.create :category => cata
-      Event.create :category => cata
-      Event.create :category => catb
+      Event.create! :category => cata, :start => Time.now + 10
+      Event.create! :category => cata, :start => Time.now + 10
+      Event.create! :category => catb, :start => Time.now + 10
 
       Event.in_category('a').count.should == 2
     end

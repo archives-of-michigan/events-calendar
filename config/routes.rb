@@ -1,16 +1,18 @@
 CivilWarEvents::Application.routes.draw do
   devise_for :users
 
-  resources :events do
-    member do
-      put :approve
-      put :unapprove
+  resources :categories, :constraints => { :id => /[^\/]*/ } do
+    shallow do
+      resources :events do
+        member do
+          put :approve
+          put :unapprove
+        end
+      end
     end
+    match 'calendars/:year/:month', :to => 'calendars#show'
+    match 'events/:year/:month/:day', :to => 'events#by_day', :as => 'events_by_day'
   end
 
-  match '/calendars/:category/:year/:month', :to => 'calendars#show'
-  match '/events/:category/:year/:month/:day', :to => 'events#by_day', :as => 'events_by_day'
-  match '/events/:category', :to => 'events#index', :as => 'events'
-
-  root :to => "events#index"
+  root :to => 'events#index'
 end

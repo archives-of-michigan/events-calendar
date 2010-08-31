@@ -51,6 +51,6 @@
     |
     <%= link_to 'Delete', event_path(event), :method => :delete %>
     |
-    <%= link_to 'List', events_path %>
+    <%= link_to 'List', category_events_path(event.category) %>
   </div>
 <% end %>

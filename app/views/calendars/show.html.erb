@@ -3,9 +3,9 @@
   <%= select_tag 'calendar_month', options_for_select(@months, params[:month].to_i), :id => 'calendar_month' %>
 </div>
 <% calendar :year => params[:year].to_i, :month => params[:month].to_i,
-  :events => Event.future.approved.each, :field => :start,
+  :events => @events, :field => :start,
   :caption_format => :none do |date, events| %>
     <br />
     <%= link_to 'Events',
-      events_by_day_path(:year => date.year, :month => date.month, :day => date.day) %>
+      category_events_by_day_url(:category_id => @category.name, :year => date.year, :month => date.month, :day => date.day) %>
 <% end %>

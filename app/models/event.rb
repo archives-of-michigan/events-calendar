@@ -7,12 +7,11 @@ class Event < ActiveRecord::Base
     { :conditions => { :categories => { :name => category } },
       :include => :category }
   }
-  scope :future, :conditions => ['"events"."end" > ?', Time.now]
+  scope :future, :conditions => ['("events"."end" IS NOT NULL AND "events"."end" >= ?) OR "events.start" >= ?', Time.now, Time.now]
   scope :approved, :conditions => { :approved => true }
 
   validates_presence_of :category
-
-  before_save :parse_dates
+  validates_presence_of :start
 
   def self.grouped_list
     future.approved.group_by(&:day)
@@ -53,11 +52,5 @@ class Event < ActiveRecord::Base
 
   def to_json(options = {})
     super options.merge(:only => ['url', 'name', 'description', 'time', 'location'])
-  end
-
-private
-  def parse_dates
-    self.start = Chronic::parse(self.start_before_type_cast) if attribute_present?("start")
-    self.end = Chronic::parse(self.end_before_type_cast) if attribute_present?("end")
   end
 end
