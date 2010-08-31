@@ -9,10 +9,6 @@ class Event < ActiveRecord::Base
   validates_presence_of :category
   validates_presence_of :start
 
-  def self.grouped_list
-    future.approved.group_by(&:day)
-  end
-
   def approve!
     self.approved = true
     save!

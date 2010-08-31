@@ -9,14 +9,17 @@ class EventsController < ApplicationController
   def index
     if category
       @events = category.events.future 
-      @events = @events.limit params[:limit] if params[:limit]
       @events = @events.approved unless user_signed_in?
+      @events = @events.limit params[:limit] if params[:limit]
+      @events = @events.group_by(&:day)
+    else
+      @events = []
     end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => Event.grouped_list }
-      format.json { render :json => Event.grouped_list }
+      format.xml  { render :xml => @events }
+      format.json { render :json => @events }
     end
   end
 
