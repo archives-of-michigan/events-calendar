@@ -2,18 +2,6 @@ require 'spec_helper'
 require 'time'
 
 describe Event do
-  describe '.in_category' do
-    it 'should show all events in a given category' do
-      cata = Category.create :name => 'a'
-      catb = Category.create :name => 'b'
-      Event.create! :category => cata, :start => Time.now + 10
-      Event.create! :category => cata, :start => Time.now + 10
-      Event.create! :category => catb, :start => Time.now + 10
-
-      Event.in_category('a').count.should == 2
-    end
-  end
-
   describe 'time' do
     it 'should display a time for a single-day event with a start/end that is not all day' do
       event = Event.new :start => Time.parse('2010-08-01 10:00:00'),

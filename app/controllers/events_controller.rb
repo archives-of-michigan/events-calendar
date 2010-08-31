@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     @category = Category.find_by_name params[:category_id]
-    @events = Event.in_category(params[:category_id]).future
+    @events = @category.events.future
     @events = @events.limit params[:limit] if params[:limit]
     @events = @events.approved unless user_signed_in?
 
@@ -22,7 +22,7 @@ class EventsController < ApplicationController
     @category = Category.find_by_name params[:category_id]
     day_start = DateTime.new params[:year].to_i, params[:month].to_i, params[:day].to_i, 0, 0, 0
     day_end = DateTime.new params[:year].to_i, params[:month].to_i, params[:day].to_i, 23, 59, 59
-    @events = Event.in_category(params[:category_id]).find :all, 
+    @events = @category.events.find :all, 
       :conditions => ['? <= end AND ? >= start AND approved = ?', day_start, day_end, true]
     @date = Date.new params[:year].to_i, params[:month].to_i, params[:day].to_i
     respond_to do |format|

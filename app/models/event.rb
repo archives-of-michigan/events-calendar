@@ -3,10 +3,6 @@ class Event < ActiveRecord::Base
 
   belongs_to :category
 
-  scope :in_category, lambda { |category|
-    { :conditions => { :categories => { :name => category } },
-      :include => :category }
-  }
   scope :future, :conditions => ['("events"."end" IS NOT NULL AND "events"."end" >= ?) OR "events.start" >= ?', Time.now, Time.now]
   scope :approved, :conditions => { :approved => true }
 
