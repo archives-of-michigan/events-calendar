@@ -39,7 +39,7 @@ class Event < ActiveRecord::Base
   end
 
   def url
-    website ? website : event_path(self)
+    website ? website : "http://seekingmichigan.org/event_manager/events/#{to_param}"
   end
 
   def as_json(options = {})
