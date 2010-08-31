@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
 private
   def choose_layout
-    if category.name == 'Civil war'
+    if category.try(:name) == 'Civil war'
       'civil_war'
     else
       'teach'
