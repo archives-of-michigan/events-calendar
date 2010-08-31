@@ -7,19 +7,18 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    if category
-      @events = category.events.future 
-      @events = @events.approved unless user_signed_in?
-      @events = @events.limit params[:limit] if params[:limit]
-      @events = @events.group_by(&:day)
-    else
-      @events = []
-    end
-
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @events }
-      format.json { render :json => @events }
+      format.html do
+        load_html_events
+      end
+      format.xml do
+        load_data_events
+        render :xml => @events
+      end
+      format.json do
+        load_data_events
+        render :json => @events
+      end
     end
   end
 
@@ -140,5 +139,25 @@ private
     d = Chronic.parse(string)
     d ||= Time.parse string
     d
+  end
+
+  def load_html_events
+    if category
+      @events = category.events.future 
+      @events = @events.approved unless user_signed_in?
+    else
+      @events = []
+    end
+  end
+
+  def load_data_events
+    if category
+      @events = category.events.future.approved
+      @events = @events.limit params[:limit] if params[:limit]
+      @events = @events.group_by(&:day)
+    else
+      @events = Event.future.approved
+      @events = @events.limit params[:limit] if params[:limit]
+    end
   end
 end
