@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   layout :choose_layout
 
   def event
-    @event = Event.find params[:id] if params[:id]
+    @event ||= Event.find params[:id] if params[:id]
   end
 
   def category
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     if event
       @category = event.category
     elsif params[:category_id]
-      @category = Category.find_by_name params[:category_id]
+      @category = Category.find_by_name(params[:category_id]) or raise ActiveRecord::RecordNotFound
     end
   end
 
