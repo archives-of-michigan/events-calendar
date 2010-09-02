@@ -14,5 +14,5 @@ CivilWarEvents::Application.routes.draw do
     match 'events/:year/:month/:day', :to => 'events#by_day', :as => 'events_by_day'
   end
 
-  root :to => 'events#index'
+  root :to => 'categories#index'
 end

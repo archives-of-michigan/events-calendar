@@ -1,0 +1,7 @@
+<h2>Listing categories</h2>
+
+<ul>
+  <% Category.order(:name).each do |category| %>
+    <li><%= link_to category.name, category_events_path(category) %></li>
+  <% end %>
+</ul>

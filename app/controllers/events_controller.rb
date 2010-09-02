@@ -148,23 +148,14 @@ private
   end
 
   def load_html_events
-    if category
-      @events = category.events.future 
-      @events = @events.approved unless user_signed_in?
-    else
-      @events = []
-    end
+    @events = category.events.future 
+    @events = @events.approved unless user_signed_in?
   end
 
   def load_data_events
-    if category
-      @events = category.events.future.approved
-      @events = @events.limit params[:limit] if params[:limit]
-      @events = @events.group_by(&:day)
-    else
-      @events = Event.future.approved
-      @events = @events.limit params[:limit] if params[:limit]
-    end
+    @events = category.events.future.approved
+    @events = @events.limit params[:limit] if params[:limit]
+    @events = @events.group_by(&:day)
   end
 
   def clear_zend_cache
