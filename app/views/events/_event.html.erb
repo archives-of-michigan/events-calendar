@@ -1,25 +1,29 @@
-<h3>Name:</h3>
-<p><%= event.name %></p>
+<h1><%= event.name %></h1>
+<strong>a <%= link_to event.category.name, "http://seekingmichigan.org/#{event.category.name.gsub(/\s/,'-').downcase}" %> event</strong>
 
-<h3>Description:</h3>
-<p><%= event.description %></p>
+<% if event.description.present? %>
+  <h3>Description:</h3>
+  <p><%= event.description %></p>
+<% end %>
 
-<h3>Start:</h3>
-<p><%= event_date event.start %></p>
-
-<h3>End:</h3>
-<p><%= event_date event.end %></p>
+<h3>Dates/times:</h3>
+<p>
+  <%= event_date event.start %>
+  <% if event.end %>
+    &mdash; <%= event_date event.end %>
+  <% end %>
+</p>
 
 <% if event.all_day %>
   <h3>This is an all day event</h3>
 <% end %>
 
-<% if event.location %>
+<% if event.location.present? %>
   <h3>Location:</h3>
   <p><%= event.location %></p>
 <% end %>
 
-<% if event.website %>
+<% if event.website.present? %>
   <h3>Website:</h3>
   <p><%= link_to event.website, event.website %></p>
 <% end %>
@@ -37,6 +41,11 @@
 <% if event.cost.present? %>
   <h3>Cost:</h3>
   <p><%= event.cost %></p>
+<% end %>
+
+<% if event.registration_url.present? %>
+  <h3>Registration Link:</h3>
+  <p><%= link_to event.registration_url, event.registration_url %></p>
 <% end %>
 
 <% if user_signed_in? %>
