@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :category
 
-  scope :future, :conditions => ['("events"."end" IS NOT NULL AND "events"."end" >= ?) OR "events.start" >= ?', Time.now, Time.now]
+  scope :future, :conditions => ['events.end >= ? OR events.start >= ?', Time.now, Time.now]
   scope :approved, :conditions => { :approved => true }
 
   validates_presence_of :category
