@@ -1,0 +1,64 @@
+<h2>Events for <%= @category.name %></h2>
+
+<% if @events.empty? %>
+  There are no events yet.
+<% else %>
+  <ul class="category events">
+    <% @events.each do |event| %>
+      <li>
+        <h2><%= event.name %></h2>
+        <% if event.description.present? %>
+          <p><%= event.description %></p>
+        <% end %>
+
+        <strong>Dates/times:</strong>
+        <p>
+          <%= event_date event.start %>
+          <% if event.end %>
+            &mdash; <%= event_date event.end %>
+          <% end %>
+        </p>
+
+        <% if event.all_day %>
+          <strong>This is an all day event</strong>
+        <% end %>
+
+        <dl>
+          <% if event.location.present? %>
+            <dt>Location:</dt>
+            <dd><%= event.location %></dd>
+          <% end %>
+
+          <% if event.website.present? %>
+            <dt>Website:</dt>
+            <dd><%= link_to event.website, event.website %></dd>
+          <% end %>
+
+          <% if event.phone.present? %>
+            <dt>Phone:</dt>
+            <dd><%= event.phone %></dd>
+          <% end %>
+
+          <% if event.email.present? %>
+            <dt>Email:</dt>
+            <dd><%= mail_to event.email, event.email %></dd>
+          <% end %>
+
+          <% if event.cost.present? %>
+            <dt>Cost:</dt>
+            <dd><%= event.cost %></dd>
+          <% end %>
+
+          <% if event.registration_url.present? %>
+            <dt>Registration Link:</dt>
+            <dd><%= link_to event.registration_url, event.registration_url %></dd>
+          <% end %>
+        </dl>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @category.name == 'Civil war' %>
+  <p><%= link_to 'Add your own event', new_category_event_path(@category) %></p>
+<% end %>
