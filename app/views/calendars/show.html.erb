@@ -1,6 +1,6 @@
 <div id='calendar_controls'>
-  <%= select_tag 'calendar_year', options_for_select(@years, params[:year].to_i), :id => 'calendar_year' %>
-  <%= select_tag 'calendar_month', options_for_select(@months, params[:month].to_i), :id => 'calendar_month' %>
+  <%= select_tag 'calendar_year', options_for_select(years, params[:year].to_i), :id => 'calendar_year' %>
+  <%= select_tag 'calendar_month', options_for_select(months, params[:month].to_i), :id => 'calendar_month' %>
 </div>
 <% calendar :year => params[:year].to_i, :month => params[:month].to_i,
   :events => @events, :field => :start,
