@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <h3><%= f.label :name %></h3>
+    <h3><%= f.label :name, 'Event name' %></h3>
     <%= f.text_field :name %>
   </div>
   <div class="field">
@@ -20,21 +20,17 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <h3 style="display: inline; margin-right: 10px;"><%= f.label :all_day, 'This is an all-day event' %></h3>
-    <%= f.check_box :all_day %>
-  </div>
-  <div class="field">
     <h3><%= f.label :start, 'Start date/time' %></h3>
     <%= f.text_field :start, :value => @event.try(:start).try(:to_formatted_s, :long) %>
-    e.g. "tomorrow" or "August 1st" or "June 23rd, 2011"
+    e.g. 09/20/2010 9:00 a.m.
   </div>
   <div class="field">
     <h3><%= f.label :end, 'End date/time' %></h3>
     <%= f.text_field :end, :value => @event.try(:end).try(:to_formatted_s, :long) %>
-    e.g. "tomorrow" or "August 1st" or "June 23rd, 2011"
+    e.g. 09/20/2010 9:00 a.m.
   </div>
   <div class="field">
-    <h3><%= f.label :location %></h3>
+    <h3><%= f.label :location, 'Location and address' %></h3>
     <%= f.text_area :location, :rows => 5 %>
   </div>
   <div class="field">
