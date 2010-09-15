@@ -1,5 +1,5 @@
 <h2><%= event.name %></h2>
-<strong>a <%= link_to event.category, "http://seekingmichigan.org/#{event.category.name.gsub(/\s/,'-').downcase}" %> event</strong>
+<strong>a <%= link_to category_path(event.category), "http://seekingmichigan.org/#{event.category.name.gsub(/\s/,'-').downcase}" %> event</strong>
 
 <% if event.description.present? %>
   <h3>Description:</h3>
