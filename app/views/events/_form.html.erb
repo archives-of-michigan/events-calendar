@@ -11,47 +11,55 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <h3><%= f.label :name, 'Event name' %></h3>
-    <%= f.text_field :name %>
+  <div class="half">
+    <div class="field">
+      <h3><%= f.label :name, 'Event name' %></h3>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <h3><%= f.label :description %></h3>
+      <%= f.text_area :description %>
+    </div>
+    <div class="field">
+      <h3><%= f.label :start, 'Start date/time' %></h3>
+      <%= f.text_field :start, :value => @event.try(:start).try(:to_formatted_s, :long) %>
+      e.g. 09/20/2010 9:00 a.m.
+    </div>
+    <div class="field">
+      <h3><%= f.label :end, 'End date/time' %></h3>
+      <%= f.text_field :end, :value => @event.try(:end).try(:to_formatted_s, :long) %>
+      e.g. 09/20/2010 9:00 a.m.
+    </div>
   </div>
-  <div class="field">
-    <h3><%= f.label :description %></h3>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <h3><%= f.label :start, 'Start date/time' %></h3>
-    <%= f.text_field :start, :value => @event.try(:start).try(:to_formatted_s, :long) %>
-    e.g. 09/20/2010 9:00 a.m.
-  </div>
-  <div class="field">
-    <h3><%= f.label :end, 'End date/time' %></h3>
-    <%= f.text_field :end, :value => @event.try(:end).try(:to_formatted_s, :long) %>
-    e.g. 09/20/2010 9:00 a.m.
-  </div>
-  <div class="field">
-    <h3><%= f.label :location, 'Location and address' %></h3>
-    <%= f.text_area :location, :rows => 5 %>
-  </div>
-  <div class="field">
-    <h3><%= f.label :phone %></h3>
-    <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <h3><%= f.label :website %></h3>
-    <%= f.text_field :website %>
-  </div>
-  <div class="field">
-    <h3><%= f.label :email %></h3>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <h3><%= f.label :cost %></h3>
-    <%= f.text_field :cost %>
-  </div>
-  <div class="field">
-    <h3><%= f.label :registration_url, 'Registration link' %></h3>
-    <%= f.text_field :registration_url %>
+  <div class="half">
+    <div class="field">
+      <h3><%= f.label :location, 'Location and address' %></h3>
+      <%= f.text_area :location, :rows => 5 %>
+    </div>
+    <div class="field">
+      <h3><%= f.label :submitted_by %></h3>
+      <%= f.text_field :submitted_by %>
+    </div>
+    <div class="field">
+      <h3><%= f.label :phone %></h3>
+      <%= f.text_field :phone %>
+    </div>
+    <div class="field">
+      <h3><%= f.label :website %></h3>
+      <%= f.text_field :website %>
+    </div>
+    <div class="field">
+      <h3><%= f.label :email %></h3>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <h3><%= f.label :cost %></h3>
+      <%= f.text_field :cost %>
+    </div>
+    <div class="field">
+      <h3><%= f.label :registration_url, 'Registration link' %></h3>
+      <%= f.text_field :registration_url %>
+    </div>
   </div>
   <div class="actions">
     <%= f.submit %>
