@@ -28,6 +28,11 @@
   <p><%= link_to event.website, event.website %></p>
 <% end %>
 
+<% if event.submitted_by.present? %>
+  <h3>Submitted by:</h3>
+  <p><%= event.submitted_by %></p>
+<% end %>
+
 <% if event.phone.present? %>
   <h3>Phone:</h3>
   <p><%= event.phone %></p>
