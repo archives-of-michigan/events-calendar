@@ -61,6 +61,13 @@
       <%= f.text_field :registration_url %>
     </div>
   </div>
+  <div class="field">
+    <h3><%= f.label :categories %></h3>
+    <%= f.select :category_ids,
+      options_from_collection_for_select(@categories, 'id', 'name', @event.category_ids + [@category.id]), 
+      {},
+      :multiple => 'multiple' %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -8,4 +8,10 @@ module EventsHelper
       date.strftime '%A, %B %d, %Y %I:%M%p'
     end
   end
+
+  def event_category_link_list(categories)
+    categories.map do |category|
+      link_to h(category.name), category_path(category)
+    end.to_sentence.html_safe
+  end
 end

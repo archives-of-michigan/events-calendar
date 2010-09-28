@@ -2,7 +2,7 @@ class RootController < ApplicationController
   include CalendarsHelper
 
   def teach
-    @events = Event.find :all, :conditions => "categories.name NOT LIKE 'Civil war'", :include => :category,
+    @events = Event.find :all, :conditions => "categories.name NOT LIKE 'Civil war'", :include => :categories,
       :order => :start
     @year = params[:year] || Time.now.year
     @month = params[:month] || Time.now.month
@@ -14,7 +14,7 @@ class RootController < ApplicationController
     @events = Event.find :all, 
       :conditions => ["categories.name NOT LIKE 'Civil war' AND ? <= end AND ? >= start AND approved = ?", 
                       day_start, day_end, true],
-      :include => :category
+      :include => :categories
     @date = Date.new params[:year].to_i, params[:month].to_i, params[:day].to_i
     respond_to do |format|
       format.html # index.html.erb

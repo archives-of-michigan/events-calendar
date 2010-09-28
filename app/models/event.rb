@@ -1,13 +1,16 @@
 class Event < ActiveRecord::Base
   include ActionController::UrlWriter
 
-  belongs_to :category
+  has_many :category_events
+  has_many :categories, :through => :category_events
 
   scope :future, :conditions => ['events.end >= ? OR events.start >= ?', Time.now, Time.now]
   scope :approved, :conditions => { :approved => true }
 
-  validates_presence_of :category
+  validates_presence_of :categories
   validates_presence_of :start
+
+  attr_protected :approved
 
   def approve!
     self.approved = true

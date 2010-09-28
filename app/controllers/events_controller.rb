@@ -58,6 +58,7 @@ class EventsController < ApplicationController
   # GET /events/new.xml
   def new
     category
+    @categories = Category.order('name')
     @event = Event.new
 
     respond_to do |format|
@@ -69,6 +70,7 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     load_data
+    @categories = Category.order('name')
   end
 
   # POST /events
@@ -76,7 +78,9 @@ class EventsController < ApplicationController
   def create
     parse_dates
     @category = Category.find_by_name params[:category_id]
-    @event = Event.new params[:event].merge(:category => @category)
+    @event = Event.new params[:event]
+    @event.approved = params[:event][:approved] if user_signed_in?
+    @categories = Category.order('name')
 
     respond_to do |format|
       if @event.save
@@ -95,7 +99,9 @@ class EventsController < ApplicationController
   def update
     parse_dates
     @event = Event.find(params[:id])
-    @category = @event.category
+    @event.approved = params[:event][:approved]
+    @category = @event.categories.first
+    @categories = Category.order('name')
 
     respond_to do |format|
       if @event.update_attributes(params[:event])

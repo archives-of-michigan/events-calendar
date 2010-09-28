@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   def category
     return @category if @category
     if event
-      @category = event.category
+      @category = event.categories.first
     elsif params[:category_id]
       @category = Category.find_by_name(params[:category_id]) or raise ActiveRecord::RecordNotFound
     end

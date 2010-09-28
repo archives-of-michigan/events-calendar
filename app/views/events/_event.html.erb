@@ -1,5 +1,5 @@
 <h2><%= event.name %></h2>
-<strong>a <%= link_to event.category.name, category_path(event.category) %> event</strong>
+<strong>an event for <%= event_category_link_list(event.categories) %></strong>
 
 <% if event.description.present? %>
   <h3>Description:</h3>
@@ -64,7 +64,9 @@
     <%= link_to 'Edit', edit_event_path(event), :method => :get %>
     |
     <%= link_to 'Delete', event_path(event), :method => :delete %>
-    |
-    <%= link_to 'List', category_events_path(event.category) %>
+    <% if @category %>
+      |
+      <%= link_to 'List', category_events_path(@category) %>
+    <% end %>
   </div>
 <% end %>
