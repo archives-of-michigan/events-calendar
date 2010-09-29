@@ -22,7 +22,7 @@ class Event < ActiveRecord::Base
   end
 
   def day
-    start.strftime('%B %d, %Y')
+    start.httpdate
   end
 
   def time
