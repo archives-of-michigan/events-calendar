@@ -5,6 +5,8 @@ require 'fileutils'
 class EventsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :by_day, :show, :new, :create]
 
+  include ActionView::Helpers::TextHelper
+
   # GET /events
   # GET /events.xml
   def index
@@ -162,6 +164,13 @@ private
     @events = category.events.future.approved
     @events = @events.limit params[:limit] if params[:limit]
     @events = @events.group_by(&:day)
+    @events.each do |date, list|
+      list.each do |event|
+        truncation = truncate(event['description'], :length => 50)
+        description = truncation + ' ' + "<a href=\"#{event_url(event)}\">read more &gt;&gt;</a>"
+        event['description'] = description
+      end
+    end
   end
 
   def clear_zend_cache
