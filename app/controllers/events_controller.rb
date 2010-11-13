@@ -166,8 +166,8 @@ private
     @events = @events.group_by(&:day)
     @events.each do |date, list|
       list.each do |event|
-        truncation = truncate(event['description'], :length => 50)
-        description = truncation + ' ' + "<a href=\"#{event_url(event)}\">read more &gt;&gt;</a>"
+        truncation = event['description'].split(/\s/)[0..9].join(' ')
+        description = truncation + '... ' + "<a href=\"#{event_url(event)}\">read more &gt;&gt;</a>"
         event['description'] = description
       end
     end
