@@ -80,7 +80,8 @@ class EventsController < ApplicationController
   def create
     parse_dates
     @category = Category.find_by_name params[:category_id]
-    @event = Event.new params[:event]
+    # Commented out line below to prevent addition of new events
+    # @event = Event.new params[:event]
     @event.approved = params[:event][:approved] if user_signed_in?
     @categories = Category.order('name')
 
